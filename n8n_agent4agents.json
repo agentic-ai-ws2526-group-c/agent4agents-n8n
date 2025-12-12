@@ -1,0 +1,154 @@
+{
+  "name": "n8n_first_agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Please start the chat.",
+        "options": {
+          "loadPreviousSession": "notSupported",
+          "subtitle": "Write a message to start chatting with the agent.",
+          "title": "Bosch Framework recommender",
+          "customCss": ":root {\n  /* Colors */\n  --chat--color-primary: #e20015;\n  --chat--color-primary-shade-50: #b00010;\n  --chat--color-primary-shade-100: #8a000c;\n  --chat--color-secondary: #005691;\n  --chat--color-secondary-shade-50: #004270;\n  --chat--color-white: #ffffff;\n  --chat--color-light: #eff1f2;\n  --chat--color-light-shade-50: #e0e2e5;\n  --chat--color-light-shade-100: #c1c4c9;\n  --chat--color-medium: #777777;\n  --chat--color-dark: #000000;\n  --chat--color-disabled: #d2d4d9;\n  --chat--color-typing: #404040;\n\n  /* Base Layout */\n  --chat--spacing: 1rem;\n  --chat--border-radius: 0px;\n  --chat--transition-duration: 0.15s;\n  --chat--font-family: Arial, Helvetica, sans-serif;\n\n  /* Window Dimensions */\n  --chat--window--width: 400px;\n  --chat--window--height: 600px;\n  --chat--window--bottom: var(--chat--spacing);\n  --chat--window--right: var(--chat--spacing);\n  --chat--window--z-index: 9999;\n  --chat--window--border: 1px solid var(--chat--color-light-shade-50);\n  --chat--window--border-radius: var(--chat--border-radius);\n  --chat--window--margin-bottom: var(--chat--spacing);\n\n  /* Header Styles */\n  --chat--header-height: auto;\n  --chat--header--padding: var(--chat--spacing);\n  --chat--header--background: var(--chat--color-primary);\n  --chat--header--color: var(--chat--color-white);\n  --chat--header",
+          "responseMode": "streaming"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "46cc8bcd-3dbc-49c5-b51d-e0b1ad830ed3",
+      "name": "When chat message received",
+      "webhookId": "b1395a0a-56cc-438f-9716-eb790be1d82c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a framework recommender for Bosch employees- You have to reccomend an AI framework from the following:\n- LangChain / LangGraph\n- Google ADK\n- OpenAI Agents SDK\n- Claude Agent SDK\n- Cognigy\n- N8N\n- CrewAI\nDo not reccomend any other framework.\n\nWhen you chat with the user, always use the following steps in this exact order:\n1. Greet the user an tell them that you are a framework finding assistant. Ask them if their knowledge of AI is low, medium or high.\n2. After the user tells you their knowlege basis, ask them questions about their project that they want to realise with the framework.\n3. Based on the user input and the current knowledge of the frameworks. Chose the best fitting framework and explain the user why. Give the user the option to let them create the project themselfs or ask if they want to create a ticket for the IT support.\n\nDo not answer quations that are not related to the framework finding topic as discussed above. Search for latest updates of the listed frameworks and useful information for the framework decision. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "208c8920-7050-4b98-81a4-57b341f22f7f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        208
+      ],
+      "id": "582fbc90-c813-4ade-ac82-0893a2740f16",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAI6m3yCdwsSx3vZ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        224
+      ],
+      "id": "f87142de-4dbc-47a8-896e-4877f7e84b76",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "content": "Hosted chat URL in chat messages, workflow muss dafür aktiviert sein"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        112
+      ],
+      "typeVersion": 1,
+      "id": "1b1cfe7b-893c-426b-9b88-00e4c2a1afbd",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "sessionId": "f828c6b5776d4475bfc5ef61367a565b",
+          "action": "sendMessage",
+          "chatInput": "what else can i use"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "201e4c08-e3b0-400e-9807-d1759aae36b5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d9dcf7c54e55a1c64c6142ca897565efd868d1f296ef67ceac88d70401dba6d0"
+  },
+  "id": "YyvzW3Emenhx2QH3",
+  "tags": []
+}
