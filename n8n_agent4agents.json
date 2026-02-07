@@ -16,8 +16,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.4,
       "position": [
-        0,
-        0
+        -1440,
+        464
       ],
       "id": "46cc8bcd-3dbc-49c5-b51d-e0b1ad830ed3",
       "name": "When chat message received",
@@ -25,60 +25,20 @@
     },
     {
       "parameters": {
+        "hasOutputParser": true,
         "options": {
-          "systemMessage": "You are a framework recommender for Bosch employees- You have to reccomend an AI framework from the following:\n- LangChain / LangGraph\n- Google ADK\n- OpenAI Agents SDK\n- Claude Agent SDK\n- Cognigy\n- N8N\n- CrewAI\nDo not reccomend any other framework.\n\nWhen you chat with the user, always use the following steps in this exact order:\n1. Greet the user an tell them that you are a framework finding assistant. Ask them if their knowledge of AI is low, medium or high.\n2. After the user tells you their knowlege basis, ask them questions about their project that they want to realise with the framework.\n3. Based on the user input and the current knowledge of the frameworks. Chose the best fitting framework and explain the user why. Give the user the option to let them create the project themselfs or ask if they want to create a ticket for the IT support.\n\nDo not answer quations that are not related to the framework finding topic as discussed above. Search for latest updates of the listed frameworks and useful information for the framework decision. "
+          "systemMessage": "=<SystemPrompt method=\"COMPASS\">\n    <Context>\n        <Role>Interner KI-Architekt und Technologie-Berater bei Bosch.</Role>\n        <Environment>\n            Du berätst bei der Auswahl von KI-Frameworks. Du bewertest nicht nur die technische Machbarkeit, sondern auch die **Effizienz und Einfachheit (Ease of Use)** der Umsetzung.\n            \n            Das Portfolio mit Fokus auf Usability:\n            <Tool name=\"N8N\">High Ease of Use. Visuell, Low-Code. Schnellste Umsetzung für Workflows & Integrationen.</Tool>\n            <Tool name=\"Cognigy\">High Ease of Use. Grafische Oberfläche für Konversationen. Ideal für Non-Tech-Teams im Betrieb.</Tool>\n            <Tool name=\"Google ADK\">Medium Ease of Use. Abstrahiert Komplexität, erfordert aber Cloud-Verständnis.</Tool>\n            <Tool name=\"CrewAI\">Medium/Hard Ease of Use. Python-Code, aber intuitives Abstraktions-Level für Agenten.</Tool>\n            <Tool name=\"OpenAI / Claude SDKs\">Hard Ease of Use. Reiner Code, erfordert viel \"Boilerplate\" für komplexe Dinge.</Tool>\n            <Tool name=\"LangChain / LangGraph\">Hard Ease of Use. Steile Lernkurve, aber mächtigste Kontrolle für komplexe Logik.</Tool>\n        </Environment>\n        <InputTrigger>Das Gespräch beginnt immer mit der Problembeschreibung durch den Nutzer.</InputTrigger>\n    </Context>\n\n    <Objective>\n        <PrimaryGoal>Empfehle exakt EIN Framework, das die Anforderungen erfüllt und dabei die höchste Benutzerfreundlichkeit (Ease of Use) bietet.</PrimaryGoal>\n        <SecondaryGoal>Vermeide Over-Engineering. Wähle das einfachste Tool, das den Job erledigt.</SecondaryGoal>\n        <Constraint>Triff am Ende eine harte Entscheidung für einen Gewinner. Keine Alternativen nennen.</Constraint>\n    </Objective>\n\n    <Persona>\n        <Tone>Pragmatisch, effizient, entscheidungsfreudig.</Tone>\n        <Attributes>Du bist ein Architekt, der Einfachheit liebt. Du rätst von unnötiger Komplexität ab.</Attributes>\n    </Persona>\n\n    <Audience>\n        <Target>Bosch-Mitarbeiter, die eine effiziente Lösung suchen.</Target>\n    </Audience>\n\n    <StyleAndSafety>\n        <Language>Deutsch (Professionelles \"Du\").</Language>\n        <Constraints>\n            <Constraint>Stelle keine Rückfragen, gebe direkt eine begründete Empfehlung.</Constraint>\n        </Constraints>\n    </StyleAndSafety>\n\n    <Method>\n        <Workflow>\n            <Step id=\"1\" name=\"Validierung der KI-Notwendigkeit\">\n                <Instruction>Prüfe: Ist das Problem deterministisch lösbar (Excel, RPA, Skript)?</Instruction>\n                <Action>\n                    IF (Ja): Rate von KI ab (höchster Ease of Use = keine KI).\n                    IF (Nein): Weiter zu Schritt 2.\n                </Action>\n            </Step>\n\n            <Step id=\"2\" name=\"Exploration der Anforderungen\">\n                <Instruction>Ermittle die technische Natur und den Wunsch nach Kontrolle vs. Geschwindigkeit.</Instruction>\n                <FocusPoints>\n                    - Interaktion (Chatbot vs. Hintergrundprozess)?\n                    - Komplexität (Einfache Kette vs. komplexer Loop)?\n                    - Präferenz: Schnelle visuelle Umsetzung (Low-Code) oder maximale Code-Kontrolle (High-Code)?\n                </FocusPoints>\n            </Step>\n\n            <Step id=\"3\" name=\"Heuristische Abwägung (Ease of Use First)\">\n                <InternalThoughtProcess>\n                    Priorisiere nach folgendem Prinzip:\n                    \n                    1. Kann es mit **N8N** oder **Cognigy** (High Ease of Use) gelöst werden?\n                       -> Wenn JA, sind diese die Favoriten (wegen Wartbarkeit/Speed).\n                       \n                    2. Wenn NEIN (weil die Logik zu komplex/speziell ist):\n                       -> Prüfe **CrewAI** oder **Google ADK** (Medium).\n                       \n                    3. Nur wenn absolute Granularität nötig ist:\n                       -> Wähle **LangGraph** oder **Native SDKs**.\n                    \n                    Merke: Schlage \"LangChain\" nur vor, wenn \"N8N\" an seine technischen Grenzen stößt.\n                </InternalThoughtProcess>\n            </Step>\n\n            <Step id=\"4\" name=\"Finale Entscheidung\">\n                <Instruction>Gib deine Empfehlung ab.</Instruction>\n                <OutputFormat>\n                    1. Nenne GENAU EIN Framework als Gewinner.\n                    2. Begründe die Entscheidung mit Fokus auf das Verhältnis von Anforderung zu Aufwand (z.B. \"N8N ist hier die beste Wahl, da es deinen Prozess ohne komplexen Code abbilden kann\").\n                </OutputFormat>\n            </Step>\n        </Workflow>\n    </Method>\n</SystemPrompt>",
+          "maxIterations": 20
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3,
       "position": [
-        224,
-        0
+        -1216,
+        480
       ],
       "id": "208c8920-7050-4b98-81a4-57b341f22f7f",
       "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "mode": "list",
-          "value": "gpt-4.1-mini"
-        },
-        "builtInTools": {
-          "webSearch": {
-            "searchContextSize": "medium"
-          }
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.3,
-      "position": [
-        192,
-        208
-      ],
-      "id": "582fbc90-c813-4ade-ac82-0893a2740f16",
-      "name": "OpenAI Chat Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "JAI6m3yCdwsSx3vZ",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "contextWindowLength": 10
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.3,
-      "position": [
-        368,
-        224
-      ],
-      "id": "f87142de-4dbc-47a8-896e-4877f7e84b76",
-      "name": "Simple Memory"
     },
     {
       "parameters": {
@@ -86,25 +46,428 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -240,
-        112
+        -1760,
+        480
       ],
       "typeVersion": 1,
       "id": "1b1cfe7b-893c-426b-9b88-00e4c2a1afbd",
       "name": "Sticky Note"
-    }
-  ],
-  "pinData": {
-    "When chat message received": [
-      {
-        "json": {
-          "sessionId": "f828c6b5776d4475bfc5ef61367a565b",
-          "action": "sendMessage",
-          "chatInput": "what else can i use"
+    },
+    {
+      "parameters": {
+        "source": "googleSheets",
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY",
+          "mode": "list",
+          "cachedResultName": "agent_eval_n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1209326074,
+          "mode": "list",
+          "cachedResultName": "überarbeite nochmal das google sheet/ deine tabel...",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit#gid=1209326074"
+        }
+      },
+      "type": "n8n-nodes-base.evaluationTrigger",
+      "typeVersion": 4.7,
+      "position": [
+        -1888,
+        208
+      ],
+      "id": "be3f67a6-9271-4ec4-b753-627af07150f4",
+      "name": "When fetching a dataset row",
+      "credentials": {
+        "googleApi": {
+          "id": "WaIlQirjIBuHpGSk",
+          "name": "Google Sheets account"
         }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "content": "# Evaluation\nDie vordefinierten UseCases im Google sheet werden dem Agent übergeben. Dieser defniert eine Antwort, welche zurück in das Google Sheet übertragen wird. \nIm Evaluations Tab können nun die Evaluation Möglichkeiten getestet werden.\n## 3 Evaluation Möglichkeiten\n1. Stimmt die Frameworkauswahl überein?\n2. Wie ähnlich ist die Begründung?\n3. Werden die richtogen Toolsverwendet?",
+        "height": 672,
+        "width": 1872,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1952,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "33ca91bf-9b74-4743-b7f4-cebe0550e1c0",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        912
+      ],
+      "id": "9a525dde-9fa7-4514-9918-f99fe7347e28",
+      "name": "Search in Tavily",
+      "credentials": {
+        "tavilyApi": {
+          "id": "5SsG6dQOM4QPhmko",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a04974dc-5f6d-4c36-94e8-2f0d3a648d21",
+              "name": "use_case_description",
+              "value": "={{ $json.use_case_description }}",
+              "type": "string"
+            },
+            {
+              "id": "8bf5e551-1820-42f0-bb98-c6d916854fe6",
+              "name": "preferred_model_ecosystem",
+              "value": "={{ $json.preferred_model_ecosystem }}",
+              "type": "string"
+            },
+            {
+              "id": "0ef769b3-0aa3-4d63-b553-4e8b7803fddf",
+              "name": "interaction_channel",
+              "value": "={{ $json.interaction_channel }}",
+              "type": "string"
+            },
+            {
+              "id": "3a242383-594e-4284-a1b6-32157bce92fd",
+              "name": "integration_targets",
+              "value": "={{ $json.integration_targets }}",
+              "type": "string"
+            },
+            {
+              "id": "39fc4044-40ef-4dff-9ac6-2bfbf3da6673",
+              "name": "=",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1712,
+        208
+      ],
+      "id": "18f56c5a-8d95-427e-8fba-299ae4618fa1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Base Agent",
+        "height": 432,
+        "width": 1296
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1952,
+        400
+      ],
+      "typeVersion": 1,
+      "id": "c3223c18-592c-4b05-a661-7f731b162b4f",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3-flash-preview",
+        "options": {
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1216,
+        672
+      ],
+      "id": "042a9571-3c5c-4224-a0ed-f267f0a1337d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sbWBuV4vUDfRBAyY",
+          "name": "Google Gemini(PaLM) Api account Kirenz"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "mcp.context7.com/mcp",
+        "authentication": "headerAuth",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        -1120,
+        912
+      ],
+      "id": "2f972a99-b1a7-4717-ba2e-c775eee9cd60",
+      "name": "MCP Client",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "qigBbWBui4rQL8jx",
+          "name": "Context7 API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "setMetrics",
+        "metric": "categorization",
+        "expectedAnswer": "={{ $('When fetching a dataset row').item.json.Empfehlung }}",
+        "actualAnswer": "={{ $json.output.framework }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -384,
+        -272
+      ],
+      "id": "344fa16a-35e0-44aa-b9a0-33d31079b051",
+      "name": "Eval corrrect Categorization"
+    },
+    {
+      "parameters": {
+        "operation": "setMetrics",
+        "expectedAnswer": "={{ $('When fetching a dataset row').item.json[\"Begündung\"] }}",
+        "actualAnswer": "={{ $json.output.reason }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -384,
+        -48
+      ],
+      "id": "3eb5d895-a5c6-4b40-ac7b-ed7a9fead82d",
+      "name": "Eval correct reason"
+    },
+    {
+      "parameters": {
+        "operation": "setMetrics",
+        "metric": "toolsUsed",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -368,
+        464
+      ],
+      "id": "a6059827-2f2c-4232-9811-cfd1260bc140",
+      "name": "Eval Tools used"
+    },
+    {
+      "parameters": {
+        "operation": "checkIfEvaluating"
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -896,
+        224
+      ],
+      "id": "0157e8b7-cad2-4d26-8a4f-6f77a64aecce",
+      "name": "if Evaluation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Keys aus dem vorherigen Node holen\nconst input = items[0].json;\n\n// Alle Key-Value Paare zu einem lesbaren Text zusammenfügen\nlet formattedString = Object.entries(input)\n  .map(([key, value]) => `${key}: ${value}`)\n  .join('\\n');\n\n// Das Ergebnis dem Key \"chatInput\" zuweisen\nreturn {\n  chatInput: formattedString\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        208
+      ],
+      "id": "1befef84-54b1-4124-9f33-4e98e5d96cb5",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        112
+      ],
+      "id": "edfe6936-74c1-49c8-a08a-7edfe0019971",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sbWBuV4vUDfRBAyY",
+          "name": "Google Gemini(PaLM) Api account Kirenz"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Tools",
+        "height": 272,
+        "width": 1296,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1952,
+        832
+      ],
+      "typeVersion": 1,
+      "id": "cfe22554-c987-43c7-8b8f-9778f6a1a830",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\"framework\", \"reason\"],\n  \"properties\": {\n    \"framework\": {\n      \"type\": \"string\",\n      \"description\": \"Der Name des gewählten Frameworks.\",\n      \"enum\": [\n        \"LangGraph\",\n        \"Google ADK\",\n        \"OpenAI Agents SDK\",\n        \"Claude Agent SDK\",\n        \"Cognigy\",\n        \"n8n\",\n        \"CrewAI\"\n      ]\n    },\n    \"reason\": {\n      \"type\": \"string\",\n      \"description\": \"Die Begründung für die Wahl des Frameworks.\"\n    }\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -1056,
+        688
+      ],
+      "id": "f707c14d-33b0-4802-834d-deac29b5df6a",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "source": "googleSheets",
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY",
+          "mode": "list",
+          "cachedResultName": "agent_eval_n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1209326074,
+          "mode": "list",
+          "cachedResultName": "sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit#gid=1209326074"
+        },
+        "outputs": {
+          "values": [
+            {
+              "outputName": "agent_empfehlung",
+              "outputValue": "={{ $('AI Agent').item.json.output.framework }}"
+            },
+            {
+              "outputName": "agent_begruendung",
+              "outputValue": "={{ $('AI Agent').item.json.output.reason }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -640,
+        208
+      ],
+      "id": "ecd3f4d9-bc76-4183-a113-e31e0b5492b5",
+      "name": "set Evaluation data in google sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "WaIlQirjIBuHpGSk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "source": "googleSheets",
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY",
+          "mode": "list",
+          "cachedResultName": "agent_eval_n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1209326074,
+          "mode": "list",
+          "cachedResultName": "sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit#gid=1209326074"
+        },
+        "outputs": {
+          "values": [
+            {
+              "outputName": "categorization",
+              "outputValue": "={{ $json.Categorization }}"
+            },
+            {
+              "outputName": "correctness",
+              "outputValue": "={{ $json.Correctness }}"
+            },
+            {
+              "outputName": "logic_reason"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        96,
+        -80
+      ],
+      "id": "16564c91-9c3a-4232-ae8b-7ab7fdd9138b",
+      "name": "Evaluation",
+      "credentials": {
+        "googleApi": {
+          "id": "WaIlQirjIBuHpGSk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "setMetrics",
+        "metric": "helpfulness",
+        "userQuery": "={{ $('Code in JavaScript1').item.json.chatInput }}",
+        "actualAnswer": "={{ $('AI Agent').item.json.output.reason }}",
+        "prompt": "### ROLE: SENIOR ARCHITECT & FRAMEWORK JUDGE\n\n**CONTEXT (C):**\nDu bist ein kritischer Senior Solution Architect. Ein KI-Agent hat einem Nutzer ein spezifisches Framework (LangGrap, hGoogle ADK, OpenAI Agents SDK, Claude Agent SDK, Cognigy, N8N, CrewAI) zur Lösung eines Use Cases vorgeschlagen. Deine Aufgabe ist es, als unabhängige Instanz die Sinnhaftigkeit dieses Vorschlags zu prüfen.\n\n**OBJECTIVE (O):**\nAnalysiere die Korrelation zwischen dem Use Case des Nutzers, dem vorgeschlagenen Framework und der gelieferten Begründung. Stelle fest, ob das Framework das Problem tatsächlich löst oder ob es \"Overkill\" bzw. unpassend ist.\n\n**MODEL & BEHAVIOR (M):**\n- Arbeite analytisch, objektiv und unvoreingenommen.\n- Achte auf logische Konsistenz: Stützt die Begründung die Wahl des Frameworks?\n- Identifiziere potenzielle \"Mismatches\" (z.B. ein schwerfälliges Enterprise-Framework für ein 2-Mann-Startup).\n\n**PERSONA & TONE (P):**\nDu bist professionell, direkt und präzise. Du nutzt keine Floskeln, sondern konzentrierst dich auf technische und organisatorische Fakten. Dein Ton ist konstruktiv-kritisch.\n\n**AUDIENCE (A):**\nDeine Bewertung richtet sich an Entwickler und Business-Entscheider, die eine fundierte Zweitmeinung benötigen.\n\n**SPECIFICS & CONSTRAINTS (S):**\n1. **Analyse:** Untersuche die Anforderungen des Use Cases gegen die Features des Frameworks.\n2. **Kritik:** Benenne explizit Schwachstellen in der Begründung des vorherigen Agenten.\n3. **Bewertung:** Schließe mit einem numerischen Score ab.\n\n---\n\n### EVALUATION STRUCTURE:\nBitte antworte in folgendem Format:\n\n1. **Zusammenfassung des Fits:** (Kurze Einschätzung der Kompatibilität)\n2. **Stärken der Empfehlung:** (Was passt gut zusammen?)\n3. **Kritikpunkte/Risiken:** (Wo hinkt der Vergleich oder das Framework?)\n4. **Finaler Kompatibilitäts-Score (1-5):**\n   - **1 (Inkompatibel):** Framework passt absolut nicht zum Use Case.\n   - **2 (Mangelhaft):** Grobe Fehler in der Logik oder völlig ineffizienter Ansatz.\n   - **3 (Akzeptabel):** Framework ist nutzbar, aber es gibt deutlich bessere Alternativen.\n   - **4 (Gut):** Solide Wahl mit nachvollziehbarer Begründung.\n   - **5 (Exzellent):** Perfektes Framework für diesen spezifischen Fall.\n\n---\n### INPUT DATA:\n- **USER USE CASE:** [USER_INPUT]\n- **PROPOSED FRAMEWORK:** [AGENT_PROPOSAL]\n- **JUSTIFICATION:** [AGENT_REASONING]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -368,
+        240
+      ],
+      "id": "08cacb43-8152-43e2-843b-895245dec9b0",
+      "name": "Eval logic reasoning"
+    }
+  ],
+  "pinData": {},
   "connections": {
     "When chat message received": {
       "main": [
@@ -117,7 +480,45 @@
         ]
       ]
     },
-    "OpenAI Chat Model": {
+    "When fetching a dataset row": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search in Tavily": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "if Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
       "ai_languageModel": [
         [
           {
@@ -128,23 +529,120 @@
         ]
       ]
     },
-    "Simple Memory": {
-      "ai_memory": [
+    "MCP Client": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Eval correct reason": {
+      "main": [
+        [
+          {
+            "node": "Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if Evaluation": {
+      "main": [
+        [
+          {
+            "node": "set Evaluation data in google sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
         [
           {
             "node": "AI Agent",
-            "type": "ai_memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Eval correct reason",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set Evaluation data in google sheet": {
+      "main": [
+        [
+          {
+            "node": "Eval corrrect Categorization",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Eval correct reason",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Eval logic reasoning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eval corrrect Categorization": {
+      "main": [
+        [
+          {
+            "node": "Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eval Tools used": {
+      "main": [
+        []
+      ]
+    },
+    "Eval logic reasoning": {
+      "main": [
+        [
+          {
+            "node": "Evaluation",
+            "type": "main",
             "index": 0
           }
         ]
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "201e4c08-e3b0-400e-9807-d1759aae36b5",
+  "versionId": "3aa63952-a466-40b7-9c7d-803974330b77",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "d9dcf7c54e55a1c64c6142ca897565efd868d1f296ef67ceac88d70401dba6d0"
