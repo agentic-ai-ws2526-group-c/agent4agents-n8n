@@ -22,9 +22,19 @@ Dieses Repository enthält einen n8n-Workflow im JSON-Format, der als intelligen
 ### 2. Zugangsdaten (Credentials) konfigurieren
 Nach dem Import müssen die eigenen API-Schlüssel in den entsprechenden Nodes hinterlegt werden:
 * **Google Gemini (PaLM) API:** Erforderlich für die Agenten-Nodes.
-* **Google Sheets API:** Erforderlich für den Datenzugriff auf das Google Sheet (XXXXXService Account empfohlen).
+* **Google Service Account API:** Erforderlich für den Datenzugriff auf das Google Sheet.
 * **Tavily API:** Für die Suchfunktion der Agenten.
-* **Context7 (HTTP Header Auth):** Für den `MCP Client Context7` XXXXXXNode muss ein Header mit dem Namen `X-API-KEY` hinterlegt werden.
+* **Context7:** Für den Zugriff auf Context7. Im `MCP Client Context7` Node müssen die Credentials wie folgt abgespeichert werden:
+
+#### Credential for Header Auth
+| Eigenschaft | Wert |
+| :--- | :--- |
+| **Endpoint** | mcp.context7.com/mcp |
+| **Server Transport** | HTTP Streamable |
+| **Authentication** | Header Auth |
+| **Name** | Authorization |
+| **Value** | Bearer DEIN_CONTEXT7_API_KEY |
+
 
 
 ---
@@ -39,7 +49,7 @@ Der Workflow erkennt automatisch, welcher Pfad genutzt wird, und verhält sich e
 * **Ergebnis:** Man erhält sofort ein visuelles **HTML-Dashboard** mit der Framework-Empfehlung, Begründung und einer Qualitätsbewertung durch einen zweiten Agenten ("Judge Agent").
 
 ### 2. Der Evaluations-Modus (Batch-Test)
-* **Trigger:** `When fetching a dataset row` (Google Sheets).
+* **Trigger:** `When fetching a dataset row` (Google Sheets). Diese sind momentan im Node auf 16 rows begrenzt und muss bei mehr UseCases überarbeitet werden (Max Rows to Process).
 * **Ablauf:** Der Workflow liest vordefinierte Test-Szenarien aus einer Google-Tabelle. Die Agenten bearbeiten die Anfrage und die Correctness (0 = stimmt mit Google Sheet Lösung nicht überein, 1 = stimmt überein) wird geprüft.
 * **Ergebnis:** Die KI-Empfehlungen und Scores werden direkt in die Google-Tabelle zurückgeschrieben.
 
