@@ -1,58 +1,6 @@
 {
-  "name": "n8n_first_agent",
+  "name": "agent4agents-n8n",
   "nodes": [
-    {
-      "parameters": {
-        "public": true,
-        "initialMessages": "Please start the chat.",
-        "options": {
-          "loadPreviousSession": "notSupported",
-          "subtitle": "Write a message to start chatting with the agent.",
-          "title": "Bosch Framework recommender",
-          "customCss": ":root {\n  /* Colors */\n  --chat--color-primary: #e20015;\n  --chat--color-primary-shade-50: #b00010;\n  --chat--color-primary-shade-100: #8a000c;\n  --chat--color-secondary: #005691;\n  --chat--color-secondary-shade-50: #004270;\n  --chat--color-white: #ffffff;\n  --chat--color-light: #eff1f2;\n  --chat--color-light-shade-50: #e0e2e5;\n  --chat--color-light-shade-100: #c1c4c9;\n  --chat--color-medium: #777777;\n  --chat--color-dark: #000000;\n  --chat--color-disabled: #d2d4d9;\n  --chat--color-typing: #404040;\n\n  /* Base Layout */\n  --chat--spacing: 1rem;\n  --chat--border-radius: 0px;\n  --chat--transition-duration: 0.15s;\n  --chat--font-family: Arial, Helvetica, sans-serif;\n\n  /* Window Dimensions */\n  --chat--window--width: 400px;\n  --chat--window--height: 600px;\n  --chat--window--bottom: var(--chat--spacing);\n  --chat--window--right: var(--chat--spacing);\n  --chat--window--z-index: 9999;\n  --chat--window--border: 1px solid var(--chat--color-light-shade-50);\n  --chat--window--border-radius: var(--chat--border-radius);\n  --chat--window--margin-bottom: var(--chat--spacing);\n\n  /* Header Styles */\n  --chat--header-height: auto;\n  --chat--header--padding: var(--chat--spacing);\n  --chat--header--background: var(--chat--color-primary);\n  --chat--header--color: var(--chat--color-white);\n  --chat--header",
-          "responseMode": "streaming"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-      "typeVersion": 1.4,
-      "position": [
-        -1440,
-        464
-      ],
-      "id": "46cc8bcd-3dbc-49c5-b51d-e0b1ad830ed3",
-      "name": "When chat message received",
-      "webhookId": "b1395a0a-56cc-438f-9716-eb790be1d82c"
-    },
-    {
-      "parameters": {
-        "hasOutputParser": true,
-        "options": {
-          "systemMessage": "=<SystemPrompt method=\"COMPASS\">\n    <Context>\n        <Role>Interner KI-Architekt und Technologie-Berater bei Bosch.</Role>\n        <Environment>\n            Du berätst bei der Auswahl von KI-Frameworks. Du bewertest nicht nur die technische Machbarkeit, sondern auch die **Effizienz und Einfachheit (Ease of Use)** der Umsetzung.\n            \n            Das Portfolio mit Fokus auf Usability:\n            <Tool name=\"N8N\">High Ease of Use. Visuell, Low-Code. Schnellste Umsetzung für Workflows & Integrationen.</Tool>\n            <Tool name=\"Cognigy\">High Ease of Use. Grafische Oberfläche für Konversationen. Ideal für Non-Tech-Teams im Betrieb.</Tool>\n            <Tool name=\"Google ADK\">Medium Ease of Use. Abstrahiert Komplexität, erfordert aber Cloud-Verständnis.</Tool>\n            <Tool name=\"CrewAI\">Medium/Hard Ease of Use. Python-Code, aber intuitives Abstraktions-Level für Agenten.</Tool>\n            <Tool name=\"OpenAI / Claude SDKs\">Hard Ease of Use. Reiner Code, erfordert viel \"Boilerplate\" für komplexe Dinge.</Tool>\n            <Tool name=\"LangChain / LangGraph\">Hard Ease of Use. Steile Lernkurve, aber mächtigste Kontrolle für komplexe Logik.</Tool>\n        </Environment>\n        <InputTrigger>Das Gespräch beginnt immer mit der Problembeschreibung durch den Nutzer.</InputTrigger>\n    </Context>\n\n    <Objective>\n        <PrimaryGoal>Empfehle exakt EIN Framework, das die Anforderungen erfüllt und dabei die höchste Benutzerfreundlichkeit (Ease of Use) bietet.</PrimaryGoal>\n        <SecondaryGoal>Vermeide Over-Engineering. Wähle das einfachste Tool, das den Job erledigt.</SecondaryGoal>\n        <Constraint>Triff am Ende eine harte Entscheidung für einen Gewinner. Keine Alternativen nennen.</Constraint>\n    </Objective>\n\n    <Persona>\n        <Tone>Pragmatisch, effizient, entscheidungsfreudig.</Tone>\n        <Attributes>Du bist ein Architekt, der Einfachheit liebt. Du rätst von unnötiger Komplexität ab.</Attributes>\n    </Persona>\n\n    <Audience>\n        <Target>Bosch-Mitarbeiter, die eine effiziente Lösung suchen.</Target>\n    </Audience>\n\n    <StyleAndSafety>\n        <Language>Deutsch (Professionelles \"Du\").</Language>\n        <Constraints>\n            <Constraint>Stelle keine Rückfragen, gebe direkt eine begründete Empfehlung.</Constraint>\n        </Constraints>\n    </StyleAndSafety>\n\n    <Method>\n        <Workflow>\n            <Step id=\"1\" name=\"Validierung der KI-Notwendigkeit\">\n                <Instruction>Prüfe: Ist das Problem deterministisch lösbar (Excel, RPA, Skript)?</Instruction>\n                <Action>\n                    IF (Ja): Rate von KI ab (höchster Ease of Use = keine KI).\n                    IF (Nein): Weiter zu Schritt 2.\n                </Action>\n            </Step>\n\n            <Step id=\"2\" name=\"Exploration der Anforderungen\">\n                <Instruction>Ermittle die technische Natur und den Wunsch nach Kontrolle vs. Geschwindigkeit.</Instruction>\n                <FocusPoints>\n                    - Interaktion (Chatbot vs. Hintergrundprozess)?\n                    - Komplexität (Einfache Kette vs. komplexer Loop)?\n                    - Präferenz: Schnelle visuelle Umsetzung (Low-Code) oder maximale Code-Kontrolle (High-Code)?\n                </FocusPoints>\n            </Step>\n\n            <Step id=\"3\" name=\"Heuristische Abwägung (Ease of Use First)\">\n                <InternalThoughtProcess>\n                    Priorisiere nach folgendem Prinzip:\n                    \n                    1. Kann es mit **N8N** oder **Cognigy** (High Ease of Use) gelöst werden?\n                       -> Wenn JA, sind diese die Favoriten (wegen Wartbarkeit/Speed).\n                       \n                    2. Wenn NEIN (weil die Logik zu komplex/speziell ist):\n                       -> Prüfe **CrewAI** oder **Google ADK** (Medium).\n                       \n                    3. Nur wenn absolute Granularität nötig ist:\n                       -> Wähle **LangGraph** oder **Native SDKs**.\n                    \n                    Merke: Schlage \"LangChain\" nur vor, wenn \"N8N\" an seine technischen Grenzen stößt.\n                </InternalThoughtProcess>\n            </Step>\n\n            <Step id=\"4\" name=\"Finale Entscheidung\">\n                <Instruction>Gib deine Empfehlung ab.</Instruction>\n                <OutputFormat>\n                    1. Nenne GENAU EIN Framework als Gewinner.\n                    2. Begründe die Entscheidung mit Fokus auf das Verhältnis von Anforderung zu Aufwand (z.B. \"N8N ist hier die beste Wahl, da es deinen Prozess ohne komplexen Code abbilden kann\").\n                </OutputFormat>\n            </Step>\n        </Workflow>\n    </Method>\n</SystemPrompt>",
-          "maxIterations": 20
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3,
-      "position": [
-        -1216,
-        480
-      ],
-      "id": "208c8920-7050-4b98-81a4-57b341f22f7f",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "content": "Hosted chat URL in chat messages, workflow muss dafür aktiviert sein"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -1760,
-        480
-      ],
-      "typeVersion": 1,
-      "id": "1b1cfe7b-893c-426b-9b88-00e4c2a1afbd",
-      "name": "Sticky Note"
-    },
     {
       "parameters": {
         "source": "googleSheets",
@@ -68,9 +16,11 @@
           "__rl": true,
           "value": 1209326074,
           "mode": "list",
-          "cachedResultName": "überarbeite nochmal das google sheet/ deine tabel...",
+          "cachedResultName": "sheet1",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit#gid=1209326074"
-        }
+        },
+        "limitRows": true,
+        "maxRows": 16
       },
       "type": "n8n-nodes-base.evaluationTrigger",
       "typeVersion": 4.7,
@@ -89,15 +39,15 @@
     },
     {
       "parameters": {
-        "content": "# Evaluation\nDie vordefinierten UseCases im Google sheet werden dem Agent übergeben. Dieser defniert eine Antwort, welche zurück in das Google Sheet übertragen wird. \nIm Evaluations Tab können nun die Evaluation Möglichkeiten getestet werden.\n## 3 Evaluation Möglichkeiten\n1. Stimmt die Frameworkauswahl überein?\n2. Wie ähnlich ist die Begründung?\n3. Werden die richtogen Toolsverwendet?",
-        "height": 672,
-        "width": 1872,
+        "content": "# Evaluation\nDie vordefinierten UseCases im Google Sheet werden dem Agent übergeben. Dieser defniert eine Antwort, welche zurück in das Google Sheet übertragen wird. \nDer Workflow unterscheidet zwischen Evaluation (Google Sheet)  und normalem Durchlauf (Formular).\n## 2 Evaluationsmöglichkeiten\n1. Eval Categorization: Stimmt die Frameworkauswahl überein?\n2. JudgeAgent: Reflexion der Entscheidung (LLM)\n",
+        "height": 400,
+        "width": 1888,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         -1952,
-        -288
+        0
       ],
       "typeVersion": 1,
       "id": "33ca91bf-9b74-4743-b7f4-cebe0550e1c0",
@@ -111,8 +61,8 @@
       "type": "@tavily/n8n-nodes-tavily.tavilyTool",
       "typeVersion": 1,
       "position": [
-        -992,
-        912
+        -1040,
+        896
       ],
       "id": "9a525dde-9fa7-4514-9918-f99fe7347e28",
       "name": "Search in Tavily",
@@ -150,12 +100,6 @@
               "name": "integration_targets",
               "value": "={{ $json.integration_targets }}",
               "type": "string"
-            },
-            {
-              "id": "39fc4044-40ef-4dff-9ac6-2bfbf3da6673",
-              "name": "=",
-              "value": "={{ $json.chatInput }}",
-              "type": "string"
             }
           ]
         },
@@ -172,9 +116,9 @@
     },
     {
       "parameters": {
-        "content": "## Base Agent",
+        "content": "## Base Agent\nMit \"Execute workflow\" öffnet sich das Formular.\nNach der Form submission wird der Agent gestartet und am Ende dem Nutzer ein Formular Output mit der Framework recommendation geliefert.",
         "height": 432,
-        "width": 1296
+        "width": 1888
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
@@ -187,7 +131,7 @@
     },
     {
       "parameters": {
-        "modelName": "models/gemini-3-flash-preview",
+        "modelName": "models/gemini-3-pro-preview",
         "options": {
           "temperature": 0
         }
@@ -195,8 +139,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -1216,
-        672
+        -1232,
+        704
       ],
       "id": "042a9571-3c5c-4224-a0ed-f267f0a1337d",
       "name": "Google Gemini Chat Model",
@@ -209,125 +153,22 @@
     },
     {
       "parameters": {
-        "endpointUrl": "mcp.context7.com/mcp",
-        "authentication": "headerAuth",
-        "options": {
-          "timeout": 60000
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
-      "typeVersion": 1.2,
-      "position": [
-        -1120,
-        912
-      ],
-      "id": "2f972a99-b1a7-4717-ba2e-c775eee9cd60",
-      "name": "MCP Client",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "qigBbWBui4rQL8jx",
-          "name": "Context7 API key"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "setMetrics",
-        "metric": "categorization",
-        "expectedAnswer": "={{ $('When fetching a dataset row').item.json.Empfehlung }}",
-        "actualAnswer": "={{ $json.output.framework }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.evaluation",
-      "typeVersion": 4.8,
-      "position": [
-        -384,
-        -272
-      ],
-      "id": "344fa16a-35e0-44aa-b9a0-33d31079b051",
-      "name": "Eval corrrect Categorization"
-    },
-    {
-      "parameters": {
-        "operation": "setMetrics",
-        "expectedAnswer": "={{ $('When fetching a dataset row').item.json[\"Begündung\"] }}",
-        "actualAnswer": "={{ $json.output.reason }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.evaluation",
-      "typeVersion": 4.8,
-      "position": [
-        -384,
-        -48
-      ],
-      "id": "3eb5d895-a5c6-4b40-ac7b-ed7a9fead82d",
-      "name": "Eval correct reason"
-    },
-    {
-      "parameters": {
-        "operation": "setMetrics",
-        "metric": "toolsUsed",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.evaluation",
-      "typeVersion": 4.8,
-      "position": [
-        -368,
-        464
-      ],
-      "id": "a6059827-2f2c-4232-9811-cfd1260bc140",
-      "name": "Eval Tools used"
-    },
-    {
-      "parameters": {
         "operation": "checkIfEvaluating"
       },
       "type": "n8n-nodes-base.evaluation",
       "typeVersion": 4.8,
       "position": [
-        -896,
-        224
+        -624,
+        192
       ],
       "id": "0157e8b7-cad2-4d26-8a4f-6f77a64aecce",
       "name": "if Evaluation"
     },
     {
       "parameters": {
-        "jsCode": "// Alle Keys aus dem vorherigen Node holen\nconst input = items[0].json;\n\n// Alle Key-Value Paare zu einem lesbaren Text zusammenfügen\nlet formattedString = Object.entries(input)\n  .map(([key, value]) => `${key}: ${value}`)\n  .join('\\n');\n\n// Das Ergebnis dem Key \"chatInput\" zuweisen\nreturn {\n  chatInput: formattedString\n};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1504,
-        208
-      ],
-      "id": "1befef84-54b1-4124-9f33-4e98e5d96cb5",
-      "name": "Code in JavaScript1"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -240,
-        112
-      ],
-      "id": "edfe6936-74c1-49c8-a08a-7edfe0019971",
-      "name": "Google Gemini Chat Model4",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "sbWBuV4vUDfRBAyY",
-          "name": "Google Gemini(PaLM) Api account Kirenz"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "content": "## Tools",
-        "height": 272,
-        "width": 1296,
+        "content": "## Tools\nDie Tools wurden in Testdurchläufen verwendet.\nUm mit den Nodes zu arbeiten müssen diese am RecommenderAgent an \"Tools\" angeschlossen werden.",
+        "height": 240,
+        "width": 1888,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -342,60 +183,35 @@
     {
       "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\"framework\", \"reason\"],\n  \"properties\": {\n    \"framework\": {\n      \"type\": \"string\",\n      \"description\": \"Der Name des gewählten Frameworks.\",\n      \"enum\": [\n        \"LangGraph\",\n        \"Google ADK\",\n        \"OpenAI Agents SDK\",\n        \"Claude Agent SDK\",\n        \"Cognigy\",\n        \"n8n\",\n        \"CrewAI\"\n      ]\n    },\n    \"reason\": {\n      \"type\": \"string\",\n      \"description\": \"Die Begründung für die Wahl des Frameworks.\"\n    }\n  }\n}"
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"score\": {\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"maximum\": 10,\n      \"description\": \"Eine Bewertung auf einer Skala von 1 bis 10.\"\n    },\n    \"strengths\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Eine Liste der identifizierten Stärken.\"\n    },\n    \"weaknesses\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Eine Liste der identifizierten Schwächen.\"\n    },\n    \"improvement_suggestions\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      },\n      \"description\": \"Vorschläge zur Verbesserung.\"\n    },\n    \"framework_fit\": {\n      \"type\": \"string\",\n      \"description\": \"1-2 Sätze darüber, ob und warum das Framework zum Use Case passt.\"\n    },\n    \"ease_of_use_realistic\": {\n      \"type\": \"boolean\",\n      \"description\": \"Einschätzung, ob die Benutzerfreundlichkeit realistisch bewertet wurde.\"\n    }\n  },\n  \"required\": [\n    \"score\",\n    \"strengths\",\n    \"weaknesses\",\n    \"improvement_suggestions\",\n    \"framework_fit\",\n    \"ease_of_use_realistic\"\n  ]\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        -1056,
+        -768,
         688
       ],
-      "id": "f707c14d-33b0-4802-834d-deac29b5df6a",
-      "name": "Structured Output Parser"
+      "id": "43123f1e-d6de-4ea6-9bb5-47332c544c90",
+      "name": "Structured Output Parser1"
     },
     {
       "parameters": {
-        "source": "googleSheets",
-        "authentication": "serviceAccount",
-        "documentId": {
-          "__rl": true,
-          "value": "10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY",
-          "mode": "list",
-          "cachedResultName": "agent_eval_n8n",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1209326074,
-          "mode": "list",
-          "cachedResultName": "sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10uw-CiSPgjqXQzHn9yM0G34t9mxzzv_BYItCoNz5TOY/edit#gid=1209326074"
-        },
-        "outputs": {
-          "values": [
-            {
-              "outputName": "agent_empfehlung",
-              "outputValue": "={{ $('AI Agent').item.json.output.framework }}"
-            },
-            {
-              "outputName": "agent_begruendung",
-              "outputValue": "={{ $('AI Agent').item.json.output.reason }}"
-            }
-          ]
+        "options": {
+          "temperature": 0
         }
       },
-      "type": "n8n-nodes-base.evaluation",
-      "typeVersion": 4.8,
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
       "position": [
-        -640,
-        208
+        -912,
+        688
       ],
-      "id": "ecd3f4d9-bc76-4183-a113-e31e0b5492b5",
-      "name": "set Evaluation data in google sheet",
+      "id": "95270c1d-2044-4276-b6f4-646d33b50141",
+      "name": "Google Gemini Chat Model1",
       "credentials": {
-        "googleApi": {
-          "id": "WaIlQirjIBuHpGSk",
-          "name": "Google Sheets account"
+        "googlePalmApi": {
+          "id": "sbWBuV4vUDfRBAyY",
+          "name": "Google Gemini(PaLM) Api account Kirenz"
         }
       }
     },
@@ -424,11 +240,36 @@
               "outputValue": "={{ $json.Categorization }}"
             },
             {
-              "outputName": "correctness",
-              "outputValue": "={{ $json.Correctness }}"
+              "outputName": "compatibility",
+              "outputValue": "={{ $json.output.score }}"
             },
             {
-              "outputName": "logic_reason"
+              "outputName": "compatibility_strengths",
+              "outputValue": "={{ $json.output.strengths }}"
+            },
+            {
+              "outputName": "compatibility_weaknesses",
+              "outputValue": "={{ $json.output.weaknesses }}"
+            },
+            {
+              "outputName": "improvement_suggestion",
+              "outputValue": "={{ $json.output.improvement_suggestions }}"
+            },
+            {
+              "outputName": "framework_fit",
+              "outputValue": "={{ $json.output.framework_fit }}"
+            },
+            {
+              "outputName": "eas_of_use_realistic",
+              "outputValue": "={{ $json.output.ease_of_use_realistic }}"
+            },
+            {
+              "outputName": "agent_empfehlung",
+              "outputValue": "={{ $('RecommenderAgent').item.json.output.framework }}"
+            },
+            {
+              "outputName": "agent_begruendung",
+              "outputValue": "={{ $('RecommenderAgent').item.json.output.reasoning }}"
             }
           ]
         }
@@ -436,11 +277,11 @@
       "type": "n8n-nodes-base.evaluation",
       "typeVersion": 4.8,
       "position": [
-        96,
-        -80
+        -240,
+        176
       ],
       "id": "16564c91-9c3a-4232-ae8b-7ab7fdd9138b",
-      "name": "Evaluation",
+      "name": "set Outputs Evaluation in Google sheet",
       "credentials": {
         "googleApi": {
           "id": "WaIlQirjIBuHpGSk",
@@ -450,36 +291,201 @@
     },
     {
       "parameters": {
+        "formTitle": "Agent4Agents",
+        "formDescription": "Beschreibe deinen Use Case und wir empfehlen dir das passende Agentic-AI-Framework. Je detaillierter deine Beschreibung, desto besser die Empfehlung.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Use Case Beschreibung",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Bevorzugtes LLM",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "OpenAI GPT"
+                  },
+                  {
+                    "option": "Google Gemini"
+                  },
+                  {
+                    "option": "Anthropic Claude"
+                  },
+                  {
+                    "option": "Keine Präferenz"
+                  },
+                  {
+                    "option": "Anderes (in Intergration Targets angeben)"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Interaktionskanal",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Hintergrundprozess / Automatisierung"
+                  },
+                  {
+                    "option": "Chatbot / Konversation"
+                  },
+                  {
+                    "option": "Dashboard / UI"
+                  },
+                  {
+                    "option": "Anderer Kanal"
+                  },
+                  {
+                    "option": "API / Service"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Integration Targets",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "customCss": ":root {\n\t--font-family: 'Open Sans', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 12px;\n\t--font-size-label: 14px;\n\t--font-size-test-notice: 12px;\n\t--font-size-input: 14px;\n\t--font-size-header: 20px;\n\t--font-size-paragraph: 14px;\n\t--font-size-link: 12px;\n\t--font-size-error: 12px;\n\t--font-size-html-h1: 28px;\n\t--font-size-html-h2: 20px;\n\t--font-size-html-h3: 16px;\n\t--font-size-html-h4: 14px;\n\t--font-size-html-h5: 12px;\n\t--font-size-html-h6: 10px;\n\t--font-size-subheader: 14px;\n\n\t/* Colors */\n\t--color-background: #fbfcfe;\n\t--color-test-notice-text: #e6a23d;\n\t--color-test-notice-bg: #fefaf6;\n\t--color-test-notice-border: #f6dcb7;\n\t--color-card-bg: #ffffff;\n\t--color-card-border: #dbdfe7;\n\t--color-card-shadow: rgba(99, 77, 255, 0.06);\n\t--color-link: #7e8186;\n\t--color-header: #525356;\n\t--color-label: #555555;\n\t--color-input-border: #dbdfe7;\n\t--color-input-text: #71747A;\n\t--color-focus-border: rgb(90, 76, 194);\n\t--color-submit-btn-bg: #ff6d5a;\n\t--color-submit-btn-text: #ffffff;\n\t--color-error: #ea1f30;\n\t--color-required: #ff6d5a;\n\t--color-clear-button-bg: #7e8186;\n\t--color-html-text: #555;\n\t--color-html-link: #ff6d5a;\n\t--color-header-subtext: #7e8186;\n\n\t/* Border Radii */\n\t--border-radius-card: 8px;\n\t--border-radius-input: 6px;\n\t--border-radius-clear-btn: 50%;\n\t--card-border-radius: 8px;\n\n\t/* Spacing */\n\t--padding-container-top: 24px;\n\t--padding-card: 24px;\n\t--padding-test-notice-vertical: 12px;\n\t--padding-test-notice-horizontal: 24px;\n\t--margin-bottom-card: 16px;\n\t--padding-form-input: 12px;\n\t--card-padding: 24px;\n\t--card-margin-bottom: 16px;\n\n\t/* Dimensions */\n\t--container-width: 448px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 18px;\n\n\t/* Others */\n\t--box-shadow-card: 0px 4px 16px 0px var(--color-card-shadow);\n\t--opacity-placeholder: 0.5;\n}"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -1664,
+        496
+      ],
+      "id": "545edd02-372d-4f08-ac4f-888932a37ecb",
+      "name": "On form submission",
+      "webhookId": "28c6a285-b210-48ba-b6d0-1db0a9ce98d5"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "=<style>\n  .card {\n    font-family: 'Segoe UI', Roboto, sans-serif;\n    border: 1px solid #e2e8f0;\n    border-radius: 16px;\n    padding: 24px;\n    max-width: 650px;\n    background-color: #ffffff;\n    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);\n    margin: 20px auto;\n    color: #1a202c;\n  }\n  .status-badge {\n    text-transform: uppercase;\n    font-size: 0.7rem;\n    font-weight: 800;\n    color: #059669;\n    margin-bottom: 8px;\n    display: block;\n  }\n  .header {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    margin-bottom: 12px;\n  }\n  .title-group { display: flex; align-items: center; gap: 10px; }\n  .icon { font-size: 1.5rem; }\n  .title { font-size: 1.4rem; font-weight: 800; color: #111827; }\n  \n  /* Ease of Use Badge - Jetzt in Hellgrau */\n  .score-badge {\n    background: #f1f5f9; /* Hellgrau */\n    color: #475569; /* Dunkelgrauer Text */\n    padding: 6px 14px;\n    border-radius: 99px;\n    font-size: 0.85rem;\n    font-weight: 700;\n    border: 1px solid #e2e8f0;\n  }\n  \n  .subtitle { font-weight: 700; color: #475569; margin-top: 15px; margin-bottom: 5px; display: block; font-size: 0.9rem; }\n  .main-text { color: #4b5563; line-height: 1.6; font-size: 0.95rem; margin-bottom: 15px; }\n  \n  /* Ausklappbarer Bereich */\n  details { border: 1px solid #edf2f7; border-radius: 10px; padding: 12px; background: #f8fafc; margin-bottom: 20px; }\n  summary { cursor: pointer; font-weight: 600; color: #0078d4; outline: none; }\n  .details-content { position: relative; padding-top: 15px; }\n  \n  .list-item { margin-bottom: 15px; }\n  .list-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.025em; margin-bottom: 4px; }\n  .list-val { font-size: 0.9rem; color: #334155; line-height: 1.5; }\n\n  /* Buttons */\n  .button-container { display: flex; gap: 10px; margin: 25px 0; flex-wrap: wrap; }\n  .btn {\n    text-decoration: none; padding: 10px 18px; border-radius: 8px;\n    font-size: 0.85rem; font-weight: 600; transition: all 0.2s;\n    border: 1px solid #e2e8f0; color: #475569; background: white;\n  }\n  .btn:hover { background: #f1f5f9; }\n  .btn-primary { background: #0078d4; color: white; border: none; }\n\n  /* Deine Eingabe Sektion */\n  .input-section {\n    border-top: 2px solid #f1f5f9; padding-top: 20px; margin-top: 20px;\n  }\n  .input-title { font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: #1e293b; }\n  .input-field { margin-bottom: 8px; font-size: 0.9rem; line-height: 1.4; }\n  .input-label { font-weight: 700; color: #475569; }\n</style>\n\n<div class=\"card\">\n  <span class=\"status-badge\">Analyse abgeschlossen</span>\n  \n  <span class=\"subtitle\">Deine Empfehlung</span>\n  <div class=\"header\">\n    <div class=\"title-group\">\n      <div class=\"title\">{{ $('RecommenderAgent').item.json.output.framework }}</div>\n    </div>\n    <span class=\"score-badge\">Ease of Use: {{ $('RecommenderAgent').item.json.output.ease_of_use }}</span>\n  </div>\n\n  <p class=\"main-text\">{{ $('RecommenderAgent').item.json.output.summary }}</p>\n\n  <span class=\"subtitle\">Begründung</span>\n  <p class=\"main-text\">{{ $('RecommenderAgent').item.json.output.reasoning }}</p>\n\n  <details>\n    <summary>Qualitätsbewertung (judge): {{ $('2 JudgeAgent').item.json.output.score }}/10</summary>\n    <div class=\"details-content\">\n      <div class=\"list-item\">\n        <div class=\"list-label\">FRAMEWORK-FIT</div>\n        <div class=\"list-val\">{{ $json.output.framework_fit }}</div>\n      </div>\n\n      <div class=\"list-item\">\n        <div class=\"list-label\">EASE-OF-USE REALISTISCH</div>\n        <div class=\"list-val\">{{ $('2 JudgeAgent').item.json.output.ease_of_use_realistic }}</div>\n      </div>\n\n      <div class=\"list-item\">\n        <div class=\"list-label\">STÄRKEN</div>\n        <div class=\"list-val\">{{ $json.output.strengths }}</div>\n      </div>\n\n      <div class=\"list-item\">\n        <div class=\"list-label\">SCHWÄCHEN</div>\n        <div class=\"list-val\">{{ $json.output.weaknesses }}</div>\n      </div>\n\n      <div class=\"list-item\">\n        <div class=\"list-label\">VERBESSERUNGSVORSCHLÄGE</div>\n        <div class=\"list-val\">{{ $json.output.improvement_suggestions }}</div>\n      </div>\n    </div>\n  </details>\n\n  <div class=\"button-container\">\n    <a href=\"#\" class=\"btn btn-primary\">Zu den Docs</a>\n    <a href=\"#\" class=\"btn\">Zum Expertenagenten</a>\n    <a href=\"#\" class=\"btn\">Expertenteam kontaktieren</a>\n  </div>\n\n  <div class=\"input-section\">\n    <div class=\"input-title\">Deine Eingabe</div>\n    <div class=\"input-field\"><span class=\"input-label\">Use Case:</span> {{ $('On form submission').item.json['Use Case Beschreibung'] }}</div>\n    <div class=\"input-field\"><span class=\"input-label\">LLM-Präferenz:</span> {{ $('On form submission').item.json['Bevorzugtes LLM'] }}</div>\n    <div class=\"input-field\"><span class=\"input-label\">Interaktionskanal:</span> {{ $('On form submission').item.json.Interaktionskanal }}</div>\n    <div class=\"input-field\"><span class=\"input-label\">Integration Targets:</span> {{ $('On form submission').item.json['Integration Targets'] }}</div>\n  </div>\n</div>"
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        512
+      ],
+      "id": "cffb0e1c-22cd-46d8-be67-467c9cc683d1",
+      "name": "Form",
+      "webhookId": "877f8f1d-e454-442b-a52f-7d7d47499263"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "mcp.context7.com/mcp",
+        "authentication": "headerAuth",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        -1200,
+        896
+      ],
+      "id": "2f972a99-b1a7-4717-ba2e-c775eee9cd60",
+      "name": "MCP Client Context7",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "qigBbWBui4rQL8jx",
+          "name": "Context7 API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=\"<SystemPrompt method=\"\"COMPASS\"\">\n    <Context>\n        <Role>Interner KI-Architekt und Technologie-Berater bei Bosch.</Role>\n        <Environment>\n            Du berätst bei der Auswahl von KI-Frameworks. Du bewertest nicht nur die technische Machbarkeit, sondern auch die **Effizienz und Einfachheit (Ease of Use)** der Umsetzung.\n            \n            Das Portfolio mit Fokus auf Usability:\n            <Tool name=\"\"n8n\"\">High Ease of Use. Visuell, Low-Code. Schnellste Umsetzung für Workflows & Integrationen.</Tool>\n            <Tool name=\"\"Cognigy\"\">High Ease of Use. Grafische Oberfläche für Konversationen. Ideal für Non-Tech-Teams im Betrieb.</Tool>\n            <Tool name=\"\"Google ADK\"\">Medium Ease of Use. Abstrahiert Komplexität, erfordert aber Cloud-Verständnis. Eignet sich für multimodale Live Video Agenten.</Tool>\n            <Tool name=\"\"CrewAI\"\">Medium/Hard Ease of Use. Python-Code, aber intuitives Abstraktions-Level für Agenten.</Tool>\n            <Tool name=\"\"OpenAI / Claude SDKs\"\">Hard Ease of Use. Reiner Code, erfordert viel \"\"Boilerplate\"\" für komplexe Dinge.</Tool>\n            <Tool name=\"\"LangChain / LangGraph\"\">Hard Ease of Use. Steile Lernkurve, aber mächtigste Kontrolle für komplexe Logik.</Tool>\n        </Environment>\n        <InputTrigger>Das Gespräch beginnt immer mit der Problembeschreibung durch den Nutzer.</InputTrigger>\n    </Context>\n\n    <Objective>\n        <PrimaryGoal>Empfehle exakt EIN Framework, das die Anforderungen erfüllt und dabei die höchste Benutzerfreundlichkeit (Ease of Use) bietet.</PrimaryGoal>\n        <SecondaryGoal>Vermeide Over-Engineering. Wähle das einfachste Tool, das den Job erledigt.</SecondaryGoal>\n        <Constraint>Triff am Ende eine harte Entscheidung für einen Gewinner. Keine Alternativen nennen.</Constraint>\n    </Objective>\n\n    <Persona>\n        <Tone>Pragmatisch, effizient, entscheidungsfreudig.</Tone>\n        <Attributes>Du bist ein Architekt, der Einfachheit liebt. Du rätst von unnötiger Komplexität ab.</Attributes>\n    </Persona>\n\n    <Audience>\n        <Target>Bosch-Mitarbeiter, die eine effiziente Lösung suchen.</Target>\n    </Audience>\n\n    <StyleAndSafety>\n        <Language>Deutsch (Professionelles \"\"Du\"\").</Language>\n        <Constraints>\n            <Constraint>Stelle keine Rückfragen, gebe direkt eine begründete Empfehlung.</Constraint>\n        </Constraints>\n    </StyleAndSafety>\n\n    <Method>\n        <Workflow>\n            <Step id=\"\"1\"\" name=\"\"Validierung der KI-Notwendigkeit\"\">\n                <Instruction>Prüfe: Ist das Problem deterministisch lösbar (Excel, RPA, Skript)?</Instruction>\n                <Action>\n                    IF (Ja): Rate von KI ab (höchster Ease of Use = keine KI).\n                    IF (Nein): Weiter zu Schritt 2.\n                </Action>\n            </Step>\n\n            <Step id=\"\"2\"\" name=\"\"Exploration der Anforderungen\"\">\n                <Instruction>Ermittle die technische Natur und den Wunsch nach Kontrolle vs. Geschwindigkeit.</Instruction>\n                <FocusPoints>\n                    - Interaktion (Chatbot vs. Hintergrundprozess)?\n                    - Workflow-Komplexität (Einfache Kette vs. komplexer Loop mit Zustandsverwaltung)?\n                    - Datenverarbeitungs-Tiefe: Reicht einfaches API-Calling oder ist eine mehrstufige analytische Pipeline nötig (z.B. NLP, Clustering, Aggregation über viele heterogene Quellen, sprachübergreifende Verarbeitung)?\n                    - Scraping-Komplexität: Müssen Daten von diversen, heterogenen Webquellen mit unterschiedlichen Strukturen extrahiert werden?\n                    - Präferenz: Schnelle visuelle Umsetzung (Low-Code) oder maximale Code-Kontrolle (High-Code)?\n                </FocusPoints>\n            </Step>\n\n            <Step id=\"\"3\"\" name=\"\"Heuristische Abwägung (Ease of Use First)\"\">\n                <InternalThoughtProcess>\n                    Priorisiere nach folgendem Prinzip:\n                    \n                    1. Kann es mit **n8n** oder **Cognigy** (High Ease of Use) gelöst werden?\n                       -> Wenn JA, sind diese die Favoriten (wegen Wartbarkeit/Speed).\n                       -> AUSNAHME 1 (Legacy-Integration): Wenn Legacy-Systeme oder interne Systeme ohne direkte Schnittstellen (z.B. kein REST-API, kein Webhook, nur Datenbankzugriff, Dateisystem, proprietäre Protokolle, Screen-Scraping) angebunden werden müssen, reichen N8N/Cognigy in der Regel NICHT aus.\n                       -> AUSNAHME 2 (Analytische Komplexität): Wenn die Kernlogik eine mehrstufige Datenverarbeitungs-Pipeline erfordert — z.B. Web-Scraping von heterogenen Quellen, multilinguales NLP (Sentiment-Analyse, Topic-Extraction), Aggregation/Clustering über viele Datenpunkte, oder stateful Verarbeitung mit komplexer Fehlerbehandlung — dann übersteigt das die Low-Code-Fähigkeiten von N8N/Cognigy. Hier ist ein Code-basiertes Framework mit Graph-/Pipeline-Unterstützung (insb. LangGraph) die bessere Wahl.\n                       -> Bei EINER der Ausnahmen: Wähle ein Code-basiertes Framework (CrewAI, Google ADK, LangGraph oder Native SDKs), das volle programmatische Kontrolle bietet.\n                       \n                    2. Wenn NEIN (weil die Logik zu komplex/speziell ist oder interne / Legacy-Systeme ohne Schnittstellen beteiligt sind):\n                       -> Prüfe **CrewAI** oder **Google ADK** (Medium).\n                       \n                    3. Nur wenn absolute Granularität nötig ist oder modellspezifische Funktionen gebraucht werden:\n                       -> Wähle **LangGraph** oder **Native SDKs**.\n                    \n                    Merke: Schlage \"\"LangChain\"\" nur vor, wenn \"\"N8N\"\" an seine technischen Grenzen stößt.\n\n                </InternalThoughtProcess>\n            </Step>\n            <Step id=\"\"4\"\" name=\"\"Finale Entscheidung\"\">\n                <Instruction>Gib deine Empfehlung ab.</Instruction>\n                <OutputFormat>\n                    ANTWORTE AUSSCHLIESSLICH IN VALIDEM JSON. Kein Markdown, kein Text vor oder nach dem JSON.\n                    \n                    Verwende exakt dieses Schema:\n                    {\n                        \"\"framework\"\": \"\"Name des empfohlenen Frameworks (exakt einer von: n8n, Cognigy, Google ADK, CrewAI, OpenAI SDK, Claude SDK, LangChain, LangGraph, Keine KI nötig)\"\",\n                        \"\"ease_of_use\"\": \"\"High\"\" | \"\"Medium\"\" | \"\"Hard\"\",\n                        \"\"summary\"\": \"\"Ein Satz: Warum genau dieses Framework.\"\",\n                        \"\"reasoning\"\": \"\"2-4 Sätze ausführliche Begründung mit Fokus auf Anforderung vs. Aufwand.\"\",\n                        \"\"ki_notwendig\"\": true | false,\n                        \"\"alternative_ohne_ki\"\": \"\"Falls ki_notwendig=false: Kurze Empfehlung (z.B. 'Excel-Makro', 'Python-Skript', 'RPA-Bot'). Sonst null.\"\"\n                    }\n                </OutputFormat>\n            </Step>\n        </Workflow>\n    </Method>\n</SystemPrompt>\"",
+          "maxIterations": 10
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -1232,
+        496
+      ],
+      "id": "208c8920-7050-4b98-81a4-57b341f22f7f",
+      "name": "RecommenderAgent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<SystemPrompt role=\"QualityJudge\">\n    <Context>\n        <Role>Unabhängiger Qualitätsprüfer für KI-Framework-Empfehlungen.</Role>\n        <Environment>\n            Du bewertest die Empfehlungen des CompassAgent kritisch und unvoreingenommen.\n            Du hast Zugriff auf:\n            1. Den originalen Use Case des Nutzers: {{ $('Formatierung für Agent Input').item.json.chatInput }}\n            2. Die Framework-Empfehlung des CompassAgent: {{ $('RecommenderAgent').item.json.output.framework }}\n            \n            Das Portfolio der verfügbaren Frameworks:\n            <Tool name=\"n8n\">High Ease of Use. Visuell, Low-Code.</Tool>\n            <Tool name=\"Cognigy\">High Ease of Use. Grafische Oberfläche für Konversationen.</Tool>\n            <Tool name=\"Google ADK\">Medium Ease of Use. Cloud-basiert, abstrahiert Komplexität.</Tool>\n            <Tool name=\"CrewAI\">Medium/Hard Ease of Use. Python-Code, intuitives Agenten-Abstraktionslevel.</Tool>\n            <Tool name=\"OpenAI / Claude SDKs\">Hard Ease of Use. Reiner Code, viel Boilerplate.</Tool>\n            <Tool name=\"LangChain / LangGraph\">Hard Ease of Use. Steile Lernkurve, maximale Kontrolle.</Tool>\n        </Environment>\n    </Context>\n\n    <Objective>\n        <PrimaryGoal>Bewerte die Qualität und Korrektheit der Framework-Empfehlung objektiv.</PrimaryGoal>\n        <Criteria>\n            <Criterion id=\"1\" name=\"Framework-Fit\">Passt das empfohlene Framework tatsächlich zum beschriebenen Use Case? Berücksichtige Interaktionskanal, Komplexität und Integrationsanforderungen.</Criterion>\n            <Criterion id=\"2\" name=\"Ease-of-Use-Realismus\">Ist die Ease-of-Use-Bewertung realistisch? Berücksichtige das technische Niveau des Use Cases und typische Implementierungshürden.</Criterion>\n            <Criterion id=\"3\" name=\"Begründungsqualität\">Ist die Begründung logisch, vollständig und fachlich korrekt? Werden die relevanten Faktoren angesprochen?</Criterion>\n            <Criterion id=\"4\" name=\"Alternativen-Check\">Wurde eine offensichtlich bessere Alternative übersehen? Gibt es ein Framework das den Use Case besser, einfacher oder effizienter lösen könnte?</Criterion>\n        </Criteria>\n    </Objective>\n\n    <Persona>\n        <Tone>Analytisch, fair, konstruktiv.</Tone>\n        <Attributes>Du bist ein erfahrener Software-Architekt und Reviewer, der sowohl Stärken als auch Schwächen konkret benennt. Du bewertest hart aber fair.</Attributes>\n    </Persona>\n\n    <StyleAndSafety>\n        <Language>Deutsch (Professionelles \"Du\").</Language>\n        <Constraints>\n            <Constraint>Sei konstruktiv – nenne immer auch konkrete Verbesserungsvorschläge.</Constraint>\n            <Constraint>Bewerte fair – nicht zu streng und nicht zu nachsichtig.</Constraint>\n            <Constraint>Stelle keine Rückfragen, liefere direkt deine Bewertung.</Constraint>\n            <Constraint>Stärken und Schwächen müssen spezifisch auf den Use Case bezogen sein, keine generischen Aussagen.</Constraint>\n        </Constraints>\n    </StyleAndSafety>\n\n    <Method>\n        <Workflow>\n            <Step id=\"1\" name=\"Framework-Fit Analyse\">\n                <Instruction>Prüfe ob das empfohlene Framework die spezifischen Anforderungen des Use Cases erfüllt. Berücksichtige Interaktionskanal, gewünschtes LLM-Ökosystem und Integrationsziele.</Instruction>\n            </Step>\n            <Step id=\"2\" name=\"Ease-of-Use Validierung\">\n                <Instruction>Bewerte ob die Ease-of-Use-Einschätzung mit der Realität übereinstimmt. Bedenke typische Implementierungsaufwände und versteckte Komplexitäten.</Instruction>\n            </Step>\n            <Step id=\"3\" name=\"Begründungs-Check\">\n                <Instruction>Prüfe die logische Konsistenz und fachliche Korrektheit der Begründung. Gibt es Widersprüche oder fehlende Aspekte?</Instruction>\n            </Step>\n            <Step id=\"4\" name=\"Alternativen-Check\">\n                <Instruction>Überlege ob eine offensichtlich bessere Alternative übersehen wurde. Gibt es ein einfacheres oder passenderes Framework?</Instruction>\n            </Step>\n            <Step id=\"5\" name=\"Gesamtbewertung\">\n                <OutputFormat>\n                    ANTWORTE AUSSCHLIESSLICH IN VALIDEM JSON. Kein Markdown, kein Text vor oder nach dem JSON.\n                    \n                    Verwende exakt dieses Schema:\n                    {\n                        \"score\": <Ganzzahl 1-10>,\n                        \"strengths\": \"Stärke 1\", \"Stärke 2\", ...,\n                        \"weaknesses\": \"Schwäche 1\", ...,\n                        \"improvement_suggestions\": \"Vorschlag 1\", ...,\n                        \"framework_fit\": \"1-2 Sätze ob und warum das Framework zum Use Case passt\",\n                        \"ease_of_use_realistic\": true | false\n                    }\n                    \n                    Scoring-Richtlinie:\n                    - 9-10: Exzellente Empfehlung – Framework passt perfekt, Begründung überzeugend, keine bessere Alternative\n                    - 7-8: Gute Empfehlung – Framework passt gut, kleine Verbesserungsmöglichkeiten\n                    - 5-6: Akzeptable Empfehlung – Framework funktioniert, aber deutliche Schwächen oder bessere Alternativen vorhanden\n                    - 3-4: Problematische Empfehlung – Framework passt schlecht oder Alternative wäre deutlich besser\n                    - 1-2: Falsche oder irreführende Empfehlung – Framework ungeeignet für den Use Case\n                    \n                    Wichtig:\n                    - strengths, weaknesses und improvement_suggestions müssen konkrete, auf den Use Case bezogene Punkte enthalten\n                    - Mindestens 2 Stärken und 1 Verbesserungsvorschlag\n                    - Leere Arrays nur wenn wirklich nichts zu bemängeln/verbessern ist\n                </OutputFormat>\n            </Step>\n        </Workflow>\n    </Method>\n</SystemPrompt>",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -912,
+        496
+      ],
+      "id": "3baf6bf7-23d1-4351-9638-ff29d4d9379a",
+      "name": "2 JudgeAgent"
+    },
+    {
+      "parameters": {
         "operation": "setMetrics",
-        "metric": "helpfulness",
-        "userQuery": "={{ $('Code in JavaScript1').item.json.chatInput }}",
-        "actualAnswer": "={{ $('AI Agent').item.json.output.reason }}",
-        "prompt": "### ROLE: SENIOR ARCHITECT & FRAMEWORK JUDGE\n\n**CONTEXT (C):**\nDu bist ein kritischer Senior Solution Architect. Ein KI-Agent hat einem Nutzer ein spezifisches Framework (LangGrap, hGoogle ADK, OpenAI Agents SDK, Claude Agent SDK, Cognigy, N8N, CrewAI) zur Lösung eines Use Cases vorgeschlagen. Deine Aufgabe ist es, als unabhängige Instanz die Sinnhaftigkeit dieses Vorschlags zu prüfen.\n\n**OBJECTIVE (O):**\nAnalysiere die Korrelation zwischen dem Use Case des Nutzers, dem vorgeschlagenen Framework und der gelieferten Begründung. Stelle fest, ob das Framework das Problem tatsächlich löst oder ob es \"Overkill\" bzw. unpassend ist.\n\n**MODEL & BEHAVIOR (M):**\n- Arbeite analytisch, objektiv und unvoreingenommen.\n- Achte auf logische Konsistenz: Stützt die Begründung die Wahl des Frameworks?\n- Identifiziere potenzielle \"Mismatches\" (z.B. ein schwerfälliges Enterprise-Framework für ein 2-Mann-Startup).\n\n**PERSONA & TONE (P):**\nDu bist professionell, direkt und präzise. Du nutzt keine Floskeln, sondern konzentrierst dich auf technische und organisatorische Fakten. Dein Ton ist konstruktiv-kritisch.\n\n**AUDIENCE (A):**\nDeine Bewertung richtet sich an Entwickler und Business-Entscheider, die eine fundierte Zweitmeinung benötigen.\n\n**SPECIFICS & CONSTRAINTS (S):**\n1. **Analyse:** Untersuche die Anforderungen des Use Cases gegen die Features des Frameworks.\n2. **Kritik:** Benenne explizit Schwachstellen in der Begründung des vorherigen Agenten.\n3. **Bewertung:** Schließe mit einem numerischen Score ab.\n\n---\n\n### EVALUATION STRUCTURE:\nBitte antworte in folgendem Format:\n\n1. **Zusammenfassung des Fits:** (Kurze Einschätzung der Kompatibilität)\n2. **Stärken der Empfehlung:** (Was passt gut zusammen?)\n3. **Kritikpunkte/Risiken:** (Wo hinkt der Vergleich oder das Framework?)\n4. **Finaler Kompatibilitäts-Score (1-5):**\n   - **1 (Inkompatibel):** Framework passt absolut nicht zum Use Case.\n   - **2 (Mangelhaft):** Grobe Fehler in der Logik oder völlig ineffizienter Ansatz.\n   - **3 (Akzeptabel):** Framework ist nutzbar, aber es gibt deutlich bessere Alternativen.\n   - **4 (Gut):** Solide Wahl mit nachvollziehbarer Begründung.\n   - **5 (Exzellent):** Perfektes Framework für diesen spezifischen Fall.\n\n---\n### INPUT DATA:\n- **USER USE CASE:** [USER_INPUT]\n- **PROPOSED FRAMEWORK:** [AGENT_PROPOSAL]\n- **JUSTIFICATION:** [AGENT_REASONING]",
+        "metric": "categorization",
+        "expectedAnswer": "={{ $('When fetching a dataset row').item.json.Empfehlung }}",
+        "actualAnswer": "={{ $('RecommenderAgent').item.json.output.framework }}",
         "options": {}
       },
       "type": "n8n-nodes-base.evaluation",
       "typeVersion": 4.8,
       "position": [
-        -368,
-        240
+        -416,
+        176
       ],
-      "id": "08cacb43-8152-43e2-843b-895245dec9b0",
-      "name": "Eval logic reasoning"
+      "id": "344fa16a-35e0-44aa-b9a0-33d31079b051",
+      "name": "1 Eval Categorization"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Daten aus dem vorherigen Node holen\nconst input = items[0].json;\n\n// Liste der Keys, die nicht für Agenten relevant sind\nconst excludeKeys = [\"submittedAt\", \"formMode\"];\n\nlet formattedString = Object.entries(input)\n  .filter(([key]) => !excludeKeys.includes(key))\n  .map(([key, value]) => `${key}: ${value}`)\n  .join('\\n');\n\n// Format für Chatinput in Agenten\nreturn {\n  chatInput: formattedString\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1440,
+        496
+      ],
+      "id": "673454ac-ee9d-4962-8010-f0b0c702225b",
+      "name": "Formatierung für Agent Input"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"properties\": {\n    \"framework\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"n8n\",\n        \"Cognigy\",\n        \"Google ADK\",\n        \"CrewAI\",\n        \"OpenAI SDK\",\n        \"Claude SDK\",\n        \"LangChain\",\n        \"LangGraph\",\n        \"Keine KI nötig\"\n      ],\n      \"description\": \"Name des empfohlenen Frameworks\"\n    },\n    \"ease_of_use\": {\n      \"type\": \"string\",\n      \"enum\": [\"High\", \"Medium\", \"Hard\"],\n      \"description\": \"Schwierigkeitsgrad der Implementierung\"\n    },\n    \"summary\": {\n      \"type\": \"string\",\n      \"description\": \"Ein Satz: Warum genau dieses Framework.\"\n    },\n    \"reasoning\": {\n      \"type\": \"string\",\n      \"description\": \"2-4 Sätze ausführliche Begründung mit Fokus auf Anforderung vs. Aufwand.\"\n    },\n    \"ki_notwendig\": {\n      \"type\": \"boolean\",\n      \"description\": \"Gibt an, ob eine KI-Lösung zwingend erforderlich ist.\"\n    },\n    \"alternative_ohne_ki\": {\n      \"type\": [\"string\", \"null\"],\n      \"description\": \"Kurze Empfehlung falls keine KI nötig ist, ansonsten null.\"\n    }\n  },\n  \"required\": [\n    \"framework\",\n    \"ease_of_use\",\n    \"summary\",\n    \"reasoning\",\n    \"ki_notwendig\",\n    \"alternative_ohne_ki\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -1072,
+        704
+      ],
+      "id": "8ab1e45d-8ad7-407c-a2d9-1afe09a4f48a",
+      "name": "Structured Output Parser"
     }
   ],
   "pinData": {},
   "connections": {
-    "When chat message received": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "When fetching a dataset row": {
       "main": [
         [
@@ -500,18 +506,7 @@
       "main": [
         [
           {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "if Evaluation",
+            "node": "Formatierung für Agent Input",
             "type": "main",
             "index": 0
           }
@@ -522,24 +517,8 @@
       "ai_languageModel": [
         [
           {
-            "node": "AI Agent",
+            "node": "RecommenderAgent",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "MCP Client": {
-      "ai_tool": [
-        []
-      ]
-    },
-    "Eval correct reason": {
-      "main": [
-        [
-          {
-            "node": "Evaluation",
-            "type": "main",
             "index": 0
           }
         ]
@@ -549,30 +528,97 @@
       "main": [
         [
           {
-            "node": "set Evaluation data in google sheet",
+            "node": "1 Eval Categorization",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "Code in JavaScript1": {
-      "main": [
+        ],
         [
           {
-            "node": "AI Agent",
+            "node": "Form",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Google Gemini Chat Model4": {
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "2 JudgeAgent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
       "ai_languageModel": [
         [
           {
-            "node": "Eval correct reason",
+            "node": "2 JudgeAgent",
             "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Formatierung für Agent Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client Context7": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "RecommenderAgent": {
+      "main": [
+        [
+          {
+            "node": "2 JudgeAgent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2 JudgeAgent": {
+      "main": [
+        [
+          {
+            "node": "if Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 Eval Categorization": {
+      "main": [
+        [
+          {
+            "node": "set Outputs Evaluation in Google sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatierung für Agent Input": {
+      "main": [
+        [
+          {
+            "node": "RecommenderAgent",
+            "type": "main",
             "index": 0
           }
         ]
@@ -582,67 +628,19 @@
       "ai_outputParser": [
         [
           {
-            "node": "AI Agent",
+            "node": "RecommenderAgent",
             "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "set Evaluation data in google sheet": {
-      "main": [
-        [
-          {
-            "node": "Eval corrrect Categorization",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Eval correct reason",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Eval logic reasoning",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Eval corrrect Categorization": {
-      "main": [
-        [
-          {
-            "node": "Evaluation",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Eval Tools used": {
-      "main": [
-        []
-      ]
-    },
-    "Eval logic reasoning": {
-      "main": [
-        [
-          {
-            "node": "Evaluation",
-            "type": "main",
             "index": 0
           }
         ]
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3aa63952-a466-40b7-9c7d-803974330b77",
+  "versionId": "9a310c9e-82d1-43d4-a875-1a50daa35e0c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "d9dcf7c54e55a1c64c6142ca897565efd868d1f296ef67ceac88d70401dba6d0"
