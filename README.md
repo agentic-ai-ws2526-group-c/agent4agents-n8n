@@ -2,6 +2,9 @@
 
 Dieses Repository enthält einen n8n-Workflow im JSON-Format, der als intelligentes Beratungstool zur Auswahl von **Agentic-AI-Frameworks** dient. Das System nutzt ein "Dual-Path"-Verfahren: Es kann entweder über ein **Formular** für Endnutzer oder als **Evaluations-Workflow** zur Qualitätssicherung betrieben werden.
 
+<img width="1113" height="613" alt="image" src="https://github.com/user-attachments/assets/1955827a-4123-4b88-ac65-d9a3d3097650" />
+
+
 ## 📁 Dateistruktur
 
 * `agent4agents-n8n.json`: Die vollständige Workflow-Datei für den Import in n8n.
